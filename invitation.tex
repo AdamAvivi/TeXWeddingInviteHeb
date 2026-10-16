@@ -14,14 +14,10 @@
 \def\eimhechoson#1{\gdef\@eimhechoson{#1}}
 \def\avihakallah#1{\gdef\@avihakallah{#1}}
 \def\eimhakallah#1{\gdef\@eimhakallah#{#1}}
-\def\chosonpatgranpa#1{\gdef\@chosonpatgranpa{#1}}
-\def\chosonpatgranma#1{\gdef\@chosonpatgranma{#1}}
-\def\chosonmatgranpa#1{\gdef\@chosonmatgrampa{#1}}
-\def\chosonmatgranma#1{\gdef\@chosonmatgranma{#1}}
-\def\kallahpatgranpa#1{\gdef\@kallahpatgranpa{#1}}
-\def\kallahpatgranma#1{\gdef\@kallahpatgranma{#1}}
-\def\kallahmatgranpa#1{\gdef\@kallahmatgrampa{#1}}
-\def\kallahmatgranma#1{\gdef\@kallahmatgranma{#1}}
+\def\chosonpatgrandparents#1{\gdef\@chosonpatgrandparents{#1}}
+\def\chosonmatgrandparents#1{\gdef\@chosonmatgrandparents{#1}}
+\def\kallahpatgrandparents#1{\gdef\@kallahpatgrandparents{#1}}
+\def\kallahmatgrandparents#1{\gdef\@kallahmatgrandparents{#1}}
 \def\venue#1{\gdef\@venue{#1}}
 \def\address#1{\gdef\@address{#1}}
 \def\kptime#1{\gdef\@kptime{#1}}
@@ -41,6 +37,7 @@
 \kallahpatgranma{}
 \kallahmatgranpa{}
 \kallahmatgranma{}
+\date{}
 \venue{}
 \address{}
 \kptime{}
@@ -61,26 +58,24 @@
        שמחים אנחנו להזמין אתכם להשתתף\\
        בשמחת כלולות בנינו היקרים\medskip\\
        החתן\\\Huge
-       מרדכי בנימין\normalsize\ נ״י\\
+       \@choson\normalsize\ נ״י\\
        והכלה\smallskip\\\Huge
-       רבקה\normalsize\ שתחי׳\medskip\\
+       \@kallah\normalsize\ שתחי׳\medskip\\
        שתתקיים אם ירצה השם בשעה טובה ומוצלחת\\
-       יום ראשון, תשע עשרה ימים לחדש מנחם אב,\\
-       שנת חמשת אלפים שבע מאות וארבע\\
-       עטרת עלקא, 2905 ולנט אויניו\\
-      אווינגז מילז, מרילנד\bigskip\\
-       קבלת פנים בשעת 6:30 בערב\\
-       חפה בשעת 7:30 בערב\\
+       \@date
+       \@venue, \@address\\
+       קבלת פנים בשעת \@kptime\\
+       חפה בשעת \@chuppatime\\
        \small סעודה אחריה\bigskip\\
         \begin{tabular}{rcl}
             הורי החתן && הורי הכלה\\
-            משה אהרן גרינברג && אהרן פרדו\\
-            מירל פרײדל הקר && מרים איוינס
+            \@avihechoson && \@avihakallah\\
+            \@eimhechoson && \@eimhakallah
         \end{tabular}\bigskip\\
         \footnotesize תפארת בנים אבותם\\
         \begin{tabular}{rcl}
-            \footnotesize מרדכי ז״ל וזיסל לאה גרינברג && וילים ושפרה בלומע פרדו\\
-            \footnotesize העניך ז״ל ודבורה ז״ל הקר && ירמיהו יהודה ז״ל וחנה ז״ל איוינס
+            \footnotesize \@chosonpatgrandparents && \@kallahpatgrandparents\\
+            \footnotesize \@chosonmatgrandparents && \@kallahmatgrandparents
         \end{tabular}
     \end{center}
 
