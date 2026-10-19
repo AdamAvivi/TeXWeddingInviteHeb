@@ -18,7 +18,7 @@ The font selector includes **SBL Hebrew, Keter YG, Shlomo, Shofar, Dyslexia Hebr
 
 SBL Hebrew is free for non-commercial use; commercial use requires a separate license. Font sources, copyright notices, and licenses are documented in [static/fonts/README.md](static/fonts/README.md).
 
-See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the template, font, and dependency credits and license references. The existing LPPL text is in [LICENSE](LICENSE); a separate copy of GPL v3 is in [GPL-3.0.txt](GPL-3.0.txt). Each third-party component retains its own license.
+The application code (`app.py` and `templates/index.html`), tests, and project documentation are licensed under the GNU General Public License version 3. See [LICENSE](LICENSE) for the full terms. The original TeX template retains its LPPL license, preserved in [LICENSE-LPPL.txt](LICENSE-LPPL.txt). Fonts and dependencies retain their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 The two main application files are `app.py` (form handling and generation) and `templates/index.html` (the page, its styling, and the keyboard).
 

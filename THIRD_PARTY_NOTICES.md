@@ -2,13 +2,13 @@
 
 This project uses the invitation template, fonts, and software listed below. Each component retains its own copyright and license. This document summarizes those components; their original license texts and notices remain authoritative.
 
-The existing [LICENSE](LICENSE) contains the LaTeX Project Public License (LPPL) version 1.3c. [GPL-3.0.txt](GPL-3.0.txt) contains the GNU General Public License version 3 for reference. Adding that file does not relicense the application, the template, or third-party assets. In particular, the fonts licensed under GPL version 2 retain that version and any accompanying exceptions.
+The application code (`app.py` and `templates/index.html`), tests, and project documentation are licensed under the GNU General Public License version 3; see [LICENSE](LICENSE). This does not relicense the original TeX template, fonts, or dependencies. The template's LPPL version 1.3c text is preserved in [LICENSE-LPPL.txt](LICENSE-LPPL.txt). Fonts licensed under GPL version 2 retain that version and any accompanying exceptions.
 
 ## Invitation template
 
 - **Design:** Max Greenberg's TeX design.
 - **File:** [invitation.tex](invitation.tex).
-- **Source:** [TeXWeddingInviteHeb](https://github.com/AdamAvivi/TeXWeddingInviteHeb), whose original repository includes the LPPL license text preserved in [LICENSE](LICENSE).
+- **Source:** [TeXWeddingInviteHeb](https://github.com/AdamAvivi/TeXWeddingInviteHeb), whose original repository includes the LPPL license text preserved in [LICENSE-LPPL.txt](LICENSE-LPPL.txt).
 - **Changes:** The bundled template file is unchanged. At generation time, the application fills in invitation details, selects fonts and paper color, adds character fallbacks where needed, and adjusts the generated page's width, margins, and height to fit the content. These changes appear in the downloadable TeX file; the original template remains available in the repository.
 
 Credit for the original design does not imply that its author maintains or supports this website.
