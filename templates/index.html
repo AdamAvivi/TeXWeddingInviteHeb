@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hebrew wedding invitation</title>
+  <style>
+    /* Basic page layout. The invitation itself is styled by invitation.tex. */
+    body {
+      max-width: 720px;
+      margin: 24px auto;
+      padding: 0 16px;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      background: #faf8f3;
+    }
+    input, textarea, select, button { font: inherit; }
+    label { display: block; margin-top: 12px; }
+    input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { padding: 8px 12px; cursor: pointer; }
+    button::before, .downloads a::before {
+      content: "🐔";
+      font-size: 0.75em;
+      margin-right: 4px;
+    }
+    fieldset { margin: 20px 0; padding: 16px; }
+    .keyboard { position: sticky; top: 0; padding: 8px; background: #faf8f3; }
+    .keys { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .keys button { min-width: 36px; }
+    .preview { display: block; max-width: 100%; width: 350px; height: auto; }
+    .downloads { display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0; }
+    .error { color: #a00000; }
+  </style>
+</head>
+<body>
+  <h1>Hebrew wedding invitation</h1>
+  <p>Enter your details, then create an invitation using Max Greenberg's TeX design.</p>
+
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  {% if files %}
+  <section aria-label="Generated invitation">
+    <h2>Your invitation</h2>
+    <img class="preview" src="{{ files.png }}" alt="Your generated Hebrew wedding invitation">
+    <div class="downloads">
+      {% for format, url in files.items() %}
+      <a href="{{ url }}" download="wedding-invitation.{{ format }}">Download {{ format.upper() }}</a>
+      {% endfor %}
+    </div>
+    <p>This is your last generated invitation. Submit again after making changes.</p>
+  </section>
+  {% endif %}
+
+  <!-- This keyboard stays visible while you scroll through the form. -->
+  <details class="keyboard" open>
+    <summary>Hebrew keyboard</summary>
+    <small id="keyboard-target">Select a text field, then click a letter.</small>
+    <div class="keys" id="keys" aria-label="Hebrew letters and vowels"></div>
+  </details>
+
+  <form method="post">
+    <fieldset>
+      <legend>Invitation details</legend>
+      <!-- These names match the commands in invitation.tex. -->
+      {% for name, label in fields.items() %}
+      <label for="{{ name }}">{{ label }}{% if name not in required %} (optional){% endif %}</label>
+      {% if name == 'date' %}
+      <textarea id="{{ name }}" name="{{ name }}" dir="auto" maxlength="220" required>{{ values.get(name, '') }}</textarea>
+      {% else %}
+      <input id="{{ name }}" name="{{ name }}" dir="auto" maxlength="100"
+             value="{{ values.get(name, '') }}" {% if name in required %}required{% endif %}>
+      {% endif %}
+      {% endfor %}
+    </fieldset>
+
+    <label for="font">Font</label>
+    <select id="font" name="font">
+      {% for font in fonts %}
+      <option value="{{ font }}" {% if values.get('font', 'SBL Hebrew') == font %}selected{% endif %}>{{ font }}</option>
+      {% endfor %}
+    </select>
+    <small>Fonts are included. SBL Hebrew permits non-commercial use; commercial use needs a separate license. Ktav Yad CLM and Nachlaot have limited vowel-mark support.</small>
+    <label for="background">Paper color</label>
+    <input type="color" id="background" name="background" value="{{ values.get('background', '#f9f5f2') }}">
+    <p><button type="submit">Create invitation</button></p>
+    <p>Rendering may take a few seconds. Temporary files are deleted afterward.</p>
+  </form>
+
+  <details>
+    <summary>See a sample invitation</summary>
+    <img class="preview" src="{{ url_for('static', filename='sample.png') }}" alt="Sample invitation using Max Greenberg's TeX design with compact margins">
+  </details>
+
+  <script>
+    // Remember the last text field selected by the user.
+    let activeInput = null;
+    const form = document.querySelector('form');
+    const keyboardTarget = document.querySelector('#keyboard-target');
+    form.addEventListener('focusin', function (event) {
+      if (event.target.matches('input:not([type]), textarea')) {
+        activeInput = event.target;
+        keyboardTarget.textContent = 'Typing in: ' + activeInput.labels[0].textContent;
+      }
+    });
+
+    // Create one button for each letter, vowel, or action.
+    const letters = Array.from('קראטוןםפשדגכעיחלךףזסבהנמצתץְִֵֶַָֹֻּׁׂ׳״,.');
+    const keys = letters.concat(['Space', 'Backspace', 'New line']);
+    for (const key of keys) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = /[\u05B0-\u05C2]/.test(key) ? '◌' + key : key;
+      // Keep the input's cursor position when a keyboard button is clicked.
+      button.addEventListener('pointerdown', function (event) { event.preventDefault(); });
+      button.addEventListener('click', function () { insertKey(key); });
+      document.querySelector('#keys').append(button);
+    }
+
+    function insertKey(key) {
+      if (!activeInput) return;
+      let start = activeInput.selectionStart;
+      const end = activeInput.selectionEnd;
+      let text = key;
+      if (key === 'Backspace') {
+        if (start === end) start = Math.max(0, start - 1);
+        text = '';
+      }
+      if (key === 'Space') text = ' ';
+      if (key === 'New line') {
+        if (activeInput.tagName !== 'TEXTAREA') return;
+        text = '\n';
+      }
+      if (activeInput.value.length - (end - start) + text.length > activeInput.maxLength) return;
+      activeInput.setRangeText(text, start, end, 'end');
+      activeInput.focus({ preventScroll: true });
+    }
+  </script>
+</body>
+</html>

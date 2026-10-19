@@ -1,0 +1,2 @@
+Flask>=3.1,<4
+flask-tex @ git+https://github.com/weinbusch/flask-tex.git@21ca21aa22d34c9d8d1357953e9b8ad480ba2117
